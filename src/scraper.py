@@ -1,4 +1,3 @@
-
 import math
 import os
 import re
@@ -23,7 +22,7 @@ class Scraper:
         self.start_date, self.end_date, self.num_months = self.__get_timespan(orig_start_date, orig_end_date, year)
         chrome_options = Options()
         chrome_options.add_argument('--headless')
-        self.driver = webdriver.Chrome(options=chrome_options)
+        self.driver = webdriver.Chrome(executable_path=r'C:/bin/chromedriver.exe', options=chrome_options)
 
 
     def __get_timespan(self, orig_start_date, orig_end_date, year):
@@ -71,7 +70,8 @@ class Scraper:
 
         edriver = EventFiringWebDriver(self.driver, MyListener(self.num_months, days, start_row, start_column, end_row, end_column))
 
-        url = f'https://www6.whentowork.com/cgi-bin/w2wFF.dll/empfullschedule?SID={sid}&lmi=&View=Month&Date={self.start_date.strftime("%Y-%m-%d")}'
+
+        url = f'https://www8.whentowork.com/cgi-bin/w2wJ.dll/empfullschedule?SID={sid}&lmi=&View=Month&Date={self.start_date.strftime("%Y-%m-%d")}'
         for i in range(self.num_months):
             scraping_mutex.acquire()
             edriver.get(url)
